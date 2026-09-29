@@ -274,7 +274,7 @@ footer .flogo svg{height:110px;width:auto;display:block;margin-bottom:8px}
       <a class="btn ghost" href="#prenota">Prenota un tavolo</a>
     </div>
     <div class="tonight">
-      <div><div class="k cond">Stasera</div><div class="v" id="tonightHours">18:00 – 01:00<small id="tonightNote">Chiude tra 5 ore</small></div></div>
+      <div><div class="k cond">Stasera</div><div class="v" id="tonightHours">17:00 – 01:00<small id="tonightNote">Chiude tra 5 ore</small></div></div>
       <div><div class="k cond">Alla spina</div><div class="v"><span id="tapCount">8</span> birre<small>2 appena spinate</small></div></div>
       <div><div class="k cond">Prossimo evento</div><div class="v">Gio 2 ott<small>Belgio in cinque bicchieri</small></div></div>
       <div><div class="k cond">Dove</div><div class="v">Antignano<small>Vomero · 3 min dalla metro Medaglie d'Oro</small></div></div>
@@ -475,7 +475,7 @@ footer .flogo svg{height:110px;width:auto;display:block;margin-bottom:8px}
         <div id="hoursBox">
           <div class="eyebrow">Orari</div>
           <table class="hours" id="hours"></table>
-          <p style="color:var(--muted);font-size:13px;margin-top:10px">Orari di esempio, da confermare con i soci.</p>
+          <p style="color:var(--muted);font-size:13px;margin-top:10px">Orari confermati: tutti i giorni dalle 17 all'una.</p>
         </div>
       </div>
     </div>
@@ -564,8 +564,8 @@ document.getElementById("chips").addEventListener("click",e=>{const b=e.target.c
 const days=["Domenica","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"];
 const now=new Date();
 document.getElementById("updatedDay").textContent=days[now.getDay()].toLowerCase()+" "+now.getDate();
-// hours: Mon closed, Tue-Thu 18-01, Fri-Sat 18-02, Sun 18-00
-const H={1:null,2:[18,1],3:[18,1],4:[18,1],5:[18,2],6:[18,2],0:[18,0]};
+// hours confirmed by Davide: every day 17-01
+const H={1:[17,1],2:[17,1],3:[17,1],4:[17,1],5:[17,1],6:[17,1],0:[17,1]};
 const hEl=document.getElementById("hours");
 [1,2,3,4,5,6,0].forEach(d=>{const tr=document.createElement("tr");if(d===now.getDay())tr.className="today";
   tr.innerHTML=`<td>${days[d]}</td><td>${H[d]?`${H[d][0]}:00 – ${String(H[d][1]).padStart(2,"0")}:00`:"Chiuso"}</td>`;hEl.appendChild(tr);});
