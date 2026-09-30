@@ -517,7 +517,7 @@ footer{font-size:15px}
         </div>
         <div class="step"><div class="eyebrow">Passo 3</div><h3>Paga e invia</h3>
           <p style="color:var(--ink-soft);margin:0 0 14px;font-size:15px">Nel sito vero: pagamento con carta o Apple Pay, invio automatico su WhatsApp. Qui: anteprima del biglietto.</p>
-          <button class="btn" id="giftGo">Paga <span id="giftPrice">5,00</span> € e invia</button>
+          <button class="btn" id="giftGo">Paga <span id="giftPrice">6,00</span> € e invia</button>
         </div>
       </div>
       <div class="ticket" id="ticket">
@@ -779,15 +779,15 @@ document.getElementById("showBar").onclick=()=>document.getElementById("bigcard"
 document.getElementById("bigClose").onclick=()=>document.getElementById("bigcard").classList.remove("show");
 // gift
 let gift=TAPS[0];const gp=document.getElementById("giftPick");
-TAPS.filter(t=>t.state!=="low").forEach(t=>{const b=document.createElement("button");b.setAttribute("aria-pressed",t===gift);b.innerHTML=`${t.name}<span>0,5 L · ${fmt(t.p5)} €</span>`;
-  b.onclick=()=>{gift=t;gp.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");document.getElementById("giftPrice").textContent=fmt(t.p5);};gp.appendChild(b);});
+TAPS.filter(t=>t.state!=="low").forEach(t=>{const b=document.createElement("button");b.setAttribute("aria-pressed",t===gift);b.innerHTML=`${t.name}<span>0,50 L · ${fmt(PRICE[t.tier][2])} €</span>`;
+  b.onclick=()=>{gift=t;gp.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");document.getElementById("giftPrice").textContent=fmt(PRICE[t.tier][2]);};gp.appendChild(b);});
 function drawQR(seed){const c=document.getElementById("qr"),x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,29,29);x.fillStyle="#15100C";let s=seed;
   const rnd=()=>{s=(s*1103515245+12345)&0x7fffffff;return s/0x7fffffff;};
   for(let i=0;i<29;i++)for(let j=0;j<29;j++)if(rnd()>.55)x.fillRect(i,j,1,1);
   const fp=(ox,oy)=>{x.fillStyle="#15100C";x.fillRect(ox,oy,7,7);x.fillStyle="#fff";x.fillRect(ox+1,oy+1,5,5);x.fillStyle="#15100C";x.fillRect(ox+2,oy+2,3,3);};fp(0,0);fp(22,0);fp(0,22);}
 drawQR(7);
 document.getElementById("giftGo").onclick=()=>{const to=document.getElementById("gTo").value||"te",from=document.getElementById("gFrom").value||"un amico",msg=document.getElementById("gMsg").value;
-  document.getElementById("tName").textContent=`${gift.name} 0,5 L`;document.getElementById("tMsg").textContent=`«${msg}»`;document.getElementById("tTo").textContent=to;document.getElementById("tFrom").textContent=from;
+  document.getElementById("tName").textContent=`${gift.name} 0,50 L`;document.getElementById("tMsg").textContent=`«${msg}»`;document.getElementById("tTo").textContent=to;document.getElementById("tFrom").textContent=from;
   const code="BF-"+Math.random().toString(36).slice(2,6).toUpperCase()+"-"+Math.random().toString(36).slice(2,4).toUpperCase();document.getElementById("tCode").textContent=code;drawQR(code.length*gift.n+Date.now()%1000);
   toast(`Biglietto pronto. Nel sito vero parte ora su WhatsApp a ${to}.`);document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"center"});};
 // booking
