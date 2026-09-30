@@ -359,6 +359,10 @@ label{font-size:13px}
 footer{font-size:15px}
 .eyebrow{font-size:13px}
 .hmark svg{filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+.totop{position:fixed;right:16px;bottom:16px;z-index:40;width:52px;height:52px;border-radius:50%;border:2px solid var(--dark);background:var(--gold);color:var(--dark);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.25);opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:hover{background:var(--dark);color:var(--gold)}
+.totop svg{width:22px;height:22px}
 </style>
 
 <nav>
@@ -706,6 +710,7 @@ footer{font-size:15px}
 </div>
 <div class="toast" id="toast"></div>
 <div class="draft">Bozza</div>
+<button class="totop" id="totop" aria-label="Torna su"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 
 <script>
 const TAPS=[
@@ -806,6 +811,9 @@ document.querySelectorAll(".stp .c button[data-k]").forEach(b=>b.onclick=()=>{co
 document.getElementById("btortaBtn").onclick=e=>{btorta=!btorta;e.target.setAttribute("aria-pressed",btorta);e.target.textContent=btorta?"Sì":"No";bfesta();};
 const bfd=new Date(now);bfd.setDate(bfd.getDate()+10);document.getElementById("bfDate").value=bfd.toISOString().slice(0,10);
 bfesta();
+
+// back to top
+(function(){const t=document.getElementById("totop");const on=()=>t.classList.toggle("show",scrollY>700);addEventListener("scroll",on,{passive:true});on();t.onclick=()=>scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});})();
 // toasts
 let tt;function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),3200);}
 document.querySelectorAll("[data-toast]").forEach(b=>b.onclick=()=>toast(b.dataset.toast));
